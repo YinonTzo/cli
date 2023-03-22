@@ -3,5 +3,5 @@
 This is the CLI component of the C&C application.
 
 # Compile & Run
-For using this project, you need to follow the steps in the server component. <br>
-https://github.com/YinonTzo/server.git
+Please follow the link to the server component:
+<a href="https://github.com/YinonTzo/server.git"> https://github.com/YinonTzo/server.git </a>
