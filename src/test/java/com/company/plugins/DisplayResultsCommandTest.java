@@ -20,7 +20,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class DisplayCommandResultCommandTest {
+class DisplayResultsCommandTest {
 
     @Mock
     ConsoleInputReader mockConsoleInputReader;
@@ -31,7 +31,7 @@ class DisplayCommandResultCommandTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        displayCommandResultCommand = new DisplayCommandResultCommand(mockConsoleInputReader);
+        displayCommandResultCommand = new DisplayResultsCommand(mockConsoleInputReader);
     }
 
     @Test
@@ -44,7 +44,7 @@ class DisplayCommandResultCommandTest {
         BaseCLIToServer message = displayCommandResultCommand.getMessage();
 
         //then
-        assertEquals("DisplayCommandResult", message.getType());
+        assertEquals("DisplayResults", message.getType());
         assertEquals(requestIds, message.getRequestIds());
     }
 
@@ -71,7 +71,7 @@ class DisplayCommandResultCommandTest {
 
         //then
         assertEquals(
-                String.format(DisplayCommandResultCommand.PAYLOADS, executionDataList) + "\r\n",
+                String.format(DisplayResultsCommand.PAYLOADS, executionDataList) + "\r\n",
                 outContent.toString()
         );
     }
@@ -94,7 +94,7 @@ class DisplayCommandResultCommandTest {
 
         //then
         assertEquals(
-                String.format(DisplayCommandResultCommand.THERE_IS_NO_MESSAGE, 1) + "\r\n"
+                String.format(DisplayResultsCommand.THERE_IS_NO_PAYLOAD, 1) + "\r\n"
                 , outContent.toString()
         );
     }
@@ -107,7 +107,7 @@ class DisplayCommandResultCommandTest {
         String commandName = displayCommandResultCommand.getCommandName();
 
         //then
-        assertEquals("DisplayCommandResult", commandName);
+        assertEquals("DisplayResults", commandName);
     }
 
     @Test

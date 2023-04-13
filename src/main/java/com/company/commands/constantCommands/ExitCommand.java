@@ -3,13 +3,14 @@ package com.company.commands.constantCommands;
 import com.company.commands.Command;
 import com.company.common.messages.CLIToServer.BaseCLIToServer;
 import com.company.common.messages.serverToCLI.BaseServerToCLI;
-import com.company.common.messages.serverToCLI.TextMessage;
+import com.company.common.messages.serverToCLI.SendPayload;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
- * The ExitCommand class is a Java class that implements the Command interface.
+ * The "ExitCommand" class is a Java class that implements the "Command" interface.
  * This class is responsible for handling the "Exit" command, which is used to terminate the application.
  * <p>
  * The getMessage() method returns a BaseCLIToServer object that represents the command to the server to terminate
@@ -36,9 +37,18 @@ public class ExitCommand implements Command {
 
     @Override
     public void printResponse(BaseServerToCLI response) {
-        TextMessage textMessage = (TextMessage) response;
+        SendPayload exitResponse = (SendPayload) response;
 
-        System.out.println(textMessage.getText());
+        Map<Long, String> clientIdToAck = exitResponse.getClientIdToAck();
+        if (clientIdToAck == null) {
+            System.out.println("Failed to send messages, Please do exit.");
+        } else {
+            for (Map.Entry<Long, String> entry : clientIdToAck.entrySet()) {
+                if (entry.getValue() != null) {
+                    System.out.println(entry.getValue() + " " + entry.getKey() + ".");
+                }
+            }
+        }
     }
 
     @Override

@@ -37,9 +37,9 @@ class DisplayClientsStatusCommandTest {
     @Test
     void printResponseThereAreClients() {
         //given
-        Map<Integer, ClientAndServerStatus> clientsAndStatusesMap = new HashMap<>();
-        clientsAndStatusesMap.put(1, ClientAndServerStatus.AVAILABLE);
-        clientsAndStatusesMap.put(2, ClientAndServerStatus.UNAVAILABLE);
+        Map<Long, ClientAndServerStatus> clientsAndStatusesMap = new HashMap<>();
+        clientsAndStatusesMap.put(1L, ClientAndServerStatus.AVAILABLE);
+        clientsAndStatusesMap.put(2L, ClientAndServerStatus.UNAVAILABLE);
         ClientsAndStatuses response = new ClientsAndStatuses();
         response.setClientsAndStatuses(clientsAndStatusesMap);
 
@@ -65,7 +65,7 @@ class DisplayClientsStatusCommandTest {
     void printResponseNoClients() {
         // given
         ClientsAndStatuses response = new ClientsAndStatuses();
-        Map<Integer, ClientAndServerStatus> clientsAndStatusesMap = new HashMap<>();
+        Map<Long, ClientAndServerStatus> clientsAndStatusesMap = new HashMap<>();
         response.setClientsAndStatuses(clientsAndStatusesMap);
 
         // redirect output to a stream

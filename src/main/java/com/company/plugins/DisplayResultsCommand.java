@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The DisplayCommandResultCommand class is a Java class that implements the Command interface.
+ * The "DisplayResultsCommand" class is a Java class that implements the "Command" interface.
  * This class is responsible for displaying the results of a command executed on the server.
  * It takes an instance of ConsoleInputReader as a constructor parameter,
  * which is used to read the command result numbers from the user.
@@ -22,16 +22,16 @@ import java.util.Map;
  * If there are no execution data for the requested results or the requested results don't exist,
  * an appropriate message is displayed.
  */
-public class DisplayCommandResultCommand implements Command {
+public class DisplayResultsCommand implements Command {
 
     public static final String PAYLOADS = "payloads results: %s";
-    public static final String THERE_IS_NO_MESSAGE = "There is no message %s.";
-    public static final String COMMAND_NAME = "DisplayCommandResult";
-    public static final String COMMAND_DESCRIPTION = "Display Command Result.";
+    public static final String THERE_IS_NO_PAYLOAD = "There is no payload %s.";
+    public static final String COMMAND_NAME = "DisplayResults";
+    public static final String COMMAND_DESCRIPTION = "Display Result.";
 
     private final ConsoleInputReader consoleInputReader;
 
-    public DisplayCommandResultCommand(ConsoleInputReader consoleInputReader) {
+    public DisplayResultsCommand(ConsoleInputReader consoleInputReader) {
         this.consoleInputReader = consoleInputReader;
     }
 
@@ -52,7 +52,7 @@ public class DisplayCommandResultCommand implements Command {
             if (entry.getValue() != null) {
                 System.out.println(String.format(PAYLOADS, entry.getValue()));
             } else {
-                System.out.println(String.format(THERE_IS_NO_MESSAGE, entry.getKey()));
+                System.out.println(String.format(THERE_IS_NO_PAYLOAD, entry.getKey()));
             }
         }
     }

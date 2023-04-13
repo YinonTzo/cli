@@ -1,10 +1,12 @@
 package com.company.plugins;
 
 import com.company.commands.Command;
+import com.company.common.messages.serverToCLI.SendPayload;
 import com.company.inputReader.ConsoleInputReader;
 import com.company.common.messages.CLIToServer.BaseCLIToServer;
 import com.company.common.messages.serverToCLI.BaseServerToCLI;
-import com.company.common.messages.serverToCLI.TextMessage;
+
+import java.util.Map;
 
 /**
  * The "RemoveClientCommand" class is a Java class that implements the Command interface.
@@ -36,9 +38,20 @@ public class RemoveClientCommand implements Command {
 
     @Override
     public void printResponse(BaseServerToCLI response) {
-        TextMessage textMessage = (TextMessage) response;
+        SendPayload removeClientResponse = (SendPayload) response;
 
-        System.out.println(textMessage.getText());
+        Map<Long, String> clientIdToAck = removeClientResponse.getClientIdToAck();
+        if (clientIdToAck == null) {
+            System.out.println("Failed to send messages, Please do exit.");
+        } else {
+            for (Map.Entry<Long, String> entry : clientIdToAck.entrySet()) {
+                if (entry.getValue() != null) {
+                    System.out.println(entry.getValue() + " Client id: " + entry.getKey() + ".");
+                } else {
+                    System.out.println(entry.getKey() + " does not exist or connected.");
+                }
+            }
+        }
     }
 
     @Override

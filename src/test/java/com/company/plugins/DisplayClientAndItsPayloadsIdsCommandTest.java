@@ -75,12 +75,37 @@ class DisplayClientAndItsPayloadsIdsCommandTest {
     }
 
     @Test
-    void printResponseClientWithNoPayloads() {
+    void printResponseWithWrongNoClient() {
         //given
         Map<String, String> clientAndPayloads = new HashMap<>();
         String client1 = "client1";
-        String noPayloads = "";
-        clientAndPayloads.put(client1, noPayloads);
+        String missingClient = "";
+        clientAndPayloads.put(client1, missingClient);
+        ClientIdAndPayloadsIds response = new ClientIdAndPayloadsIds();
+        response.setClientAndPayloads(clientAndPayloads);
+
+        // redirect output to a stream
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        //when
+        displayClientAndItsPayloadsIdsCommand.printResponse(response);
+
+        //then
+        assertEquals(
+                String.format(DisplayClientAndItsPayloadsIdsCommand.THERE_IS_NOT_CLIENT,
+                        client1) + "\r\n"
+                , outContent.toString()
+        );
+    }
+
+    @Test
+    void printResponseNoClients() {
+        //given
+        Map<String, String> clientAndPayloads = new HashMap<>();
+        String client1 = "client1";
+        String noPayload = "[]";
+        clientAndPayloads.put(client1, noPayload);
         ClientIdAndPayloadsIds response = new ClientIdAndPayloadsIds();
         response.setClientAndPayloads(clientAndPayloads);
 
@@ -100,7 +125,7 @@ class DisplayClientAndItsPayloadsIdsCommandTest {
     }
 
     @Test
-    void printResponseNoClients() {
+    void printResponseClientWithNoPayloads() {
         //given
         Map<String, String> emptyClientAndPayloads = new HashMap<>();
         ClientIdAndPayloadsIds response = new ClientIdAndPayloadsIds();

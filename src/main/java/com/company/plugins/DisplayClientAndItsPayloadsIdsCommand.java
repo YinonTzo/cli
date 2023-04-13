@@ -9,7 +9,7 @@ import com.company.common.messages.serverToCLI.ClientIdAndPayloadsIds;
 import java.util.Map;
 
 /**
- * The DisplayClientAndItsPayloadsIdsCommand class is a Java class that implements the Command interface.
+ * The "DisplayClientAndItsPayloadsIdsCommand" class is a Java class that implements the Command interface.
  * This class is responsible for displaying the payloads associated with a specific client ID.
  * It takes an instance of ConsoleInputReader as a constructor parameter,
  * which is used to read the client ID from the user.
@@ -24,11 +24,12 @@ import java.util.Map;
 public class DisplayClientAndItsPayloadsIdsCommand implements Command {
 
     public static final String CLIENT_AND_PAYLOADS_NUMBERS = "Client Id: %s has payloads numbers: %s";
-    public static final String THERE_ARE_NO_PAYLOADS = "To client %s there are no payloads." +
-            " (Or there isn't client with this Id yet).";
+    public static final String THERE_ARE_NO_PAYLOADS = "To client %s there are no payloads.";
+    public static final String THERE_IS_NOT_CLIENT = "There isn't client with Id %s yet.";
     public static final String THERE_ARE_NO_CLIENTS_AND_PAYLOADS = "There are no clients and payloads yet.";
     public static final String COMMAND_NAME = "DisplayClientAndItsPayloadsIds";
     public static final String COMMAND_DESCRIPTION = "Display Client And Its Payloads Ids.";
+    public static final String EMPTY_LIST = "[]";
 
     private final ConsoleInputReader consoleInputReader;
 
@@ -55,6 +56,8 @@ public class DisplayClientAndItsPayloadsIdsCommand implements Command {
                 String wantedClientId = entry.getKey();
 
                 if (entry.getValue().isEmpty()) {
+                    System.out.println(String.format(THERE_IS_NOT_CLIENT, wantedClientId));
+                } else if (entry.getValue().equals(EMPTY_LIST)) {
                     System.out.println(String.format(THERE_ARE_NO_PAYLOADS, wantedClientId));
                 } else {
                     System.out.println(String.format(CLIENT_AND_PAYLOADS_NUMBERS, wantedClientId, entry.getValue()));

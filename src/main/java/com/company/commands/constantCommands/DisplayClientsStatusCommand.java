@@ -9,7 +9,7 @@ import com.company.common.statuses.ClientAndServerStatus;
 import java.util.Map;
 
 /**
- * The DisplayClientsStatusCommand class is a Java class that implements the Command interface.
+ * The "DisplayClientsStatusCommand" class is a Java class that implements the "Command" interface.
  * This class is responsible for displaying the status of all clients currently connected to the server.
  * <p>
  * The getMessage() method returns a BaseCLIToServer object that represents the message sent by the client to request
@@ -28,7 +28,7 @@ public class DisplayClientsStatusCommand implements Command {
     public static final String SERVER_STATUS = "Server Status: online";
     public static final String ALL_CLIENTS_AND_THEIR_STATUSES = "All clients and their statuses:";
     public static final String COMMAND_NAME = "DisplayClientsStatus";
-    public static final String COMMAND_DESCRIPTION = "Display Clients Status Command";
+    public static final String COMMAND_DESCRIPTION = "Display Clients Status Command.";
 
     @Override
     public BaseCLIToServer getMessage() {
@@ -41,12 +41,12 @@ public class DisplayClientsStatusCommand implements Command {
 
         System.out.println(SERVER_STATUS);
 
-        Map<Integer, ClientAndServerStatus> clientsAndStatusesMap = clientsAndStatuses.getClientsAndStatuses();
+        Map<Long, ClientAndServerStatus> clientsAndStatusesMap = clientsAndStatuses.getClientsAndStatuses();
         if (clientsAndStatusesMap.isEmpty())
             System.out.println(THERE_ARE_NO_CLIENTS_YET);
         else {
             System.out.println(ALL_CLIENTS_AND_THEIR_STATUSES);
-            for (Map.Entry<Integer, ClientAndServerStatus> entry : clientsAndStatusesMap.entrySet()) {
+            for (Map.Entry<Long, ClientAndServerStatus> entry : clientsAndStatusesMap.entrySet()) {
                 System.out.println(String.format(CLIENT_AND_STATUS, entry.getKey(), entry.getValue()));
             }
         }
