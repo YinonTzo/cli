@@ -45,7 +45,7 @@ public class ExitCommand implements Command {
         } else {
             for (Map.Entry<Long, String> entry : clientIdToAck.entrySet()) {
                 if (entry.getValue() != null) {
-                    System.out.println(entry.getValue() + " " + entry.getKey() + ".");
+                    System.out.println(entry.getValue() + ". Client id: " + entry.getKey() + ".");
                 }
             }
         }
