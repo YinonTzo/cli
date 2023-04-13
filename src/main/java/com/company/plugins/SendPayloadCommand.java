@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The SendPayloadCommand class is a Java class that implements the Command interface.
+ * The "SendPayloadCommand" class is a Java class that implements the "Command" interface.
  * It takes an instance of ConsoleInputReader as a constructor parameter, which is used to read user input for creating
  * a Java command payload to be sent to the server.
  * <p>

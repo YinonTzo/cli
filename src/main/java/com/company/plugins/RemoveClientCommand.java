@@ -9,7 +9,7 @@ import com.company.common.messages.serverToCLI.BaseServerToCLI;
 import java.util.Map;
 
 /**
- * The "RemoveClientCommand" class is a Java class that implements the Command interface.
+ * The "RemoveClientCommand" class is a Java class that implements the "Command" interface.
  * This class is responsible for removing a client from the server.
  * It takes an instance of ConsoleInputReader as a constructor parameter,which is used to read the client IDs
  * to be removed from the user.

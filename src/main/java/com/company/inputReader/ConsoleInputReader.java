@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * The ConsoleInputReader class provides methods for reading various types of input from the user through the console.
+ * The "ConsoleInputReader" class provides methods for reading various types of input from the user through the console.
  * It uses a Scanner object to read input from System.in,
  * and provides methods to handle user input in different formats, such as integers and strings.
  * The class also includes error handling for invalid user input, such as parsing errors and invalid 'yes/no' input.

@@ -10,12 +10,12 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-/*
-The CLI class represents a command-line interface that connects to a remote server
-using a TCP socket and communicates with it through object streams.
-It provides methods for starting and stopping the socket connection,
-as well as running a menu of commands that can be executed on the server.
-The class uses the Menu class to implement the menu of commands.
+/**
+ * The "CLI" class represents a command-line interface that connects to a remote server
+ * using a TCP socket and communicates with it through object streams.
+ * It provides methods for starting and stopping the socket connection,
+ * as well as running a menu of commands that can be executed on the server.
+ * The class uses the Menu class to implement the menu of commands.
  */
 
 @Slf4j

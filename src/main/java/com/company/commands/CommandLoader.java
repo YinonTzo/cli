@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The CommandLoader class is responsible for loading all available Command classes from the plugins directory
+ * The "CommandLoader" class is responsible for loading all available Command classes from the plugins directory
  * and instantiating them with an ConsoleInputReader object.
  * It has a single public method called loadCommands which takes an ConsoleInputReader as an argument
  * and returns a list of Command objects.

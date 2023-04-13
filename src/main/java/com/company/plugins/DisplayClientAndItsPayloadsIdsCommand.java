@@ -9,7 +9,7 @@ import com.company.common.messages.serverToCLI.ClientIdAndPayloadsIds;
 import java.util.Map;
 
 /**
- * The "DisplayClientAndItsPayloadsIdsCommand" class is a Java class that implements the Command interface.
+ * The "DisplayClientAndItsPayloadsIdsCommand" class is a Java class that implements the "Command" interface.
  * This class is responsible for displaying the payloads associated with a specific client ID.
  * It takes an instance of ConsoleInputReader as a constructor parameter,
  * which is used to read the client ID from the user.
