@@ -12,10 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -36,21 +33,21 @@ class DisplayResultsCommandTest {
 
     @Test
     void getMessage() {
-        //given
+        // given
         List<Integer> requestIds = Arrays.asList(1, 2, 3);
         when(mockConsoleInputReader.getResultsNumbersFromUser()).thenReturn(requestIds);
 
-        //when
+        // when
         BaseCLIToServer message = displayCommandResultCommand.getMessage();
 
-        //then
+        // then
         assertEquals("DisplayResults", message.getType());
         assertEquals(requestIds, message.getRequestIds());
     }
 
     @Test
     void printResponseWithExecutionData() {
-        //given
+        // given
         Map<Integer, List<ExecutionData>> payloadIdToResult = new HashMap<>();
         int messageId1 = 1;
 
@@ -66,10 +63,10 @@ class DisplayResultsCommandTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        //when
+        // when
         displayCommandResultCommand.printResponse(response);
 
-        //then
+        // then
         assertEquals(
                 String.format(DisplayResultsCommand.PAYLOADS, executionDataList) + "\r\n",
                 outContent.toString()
@@ -78,7 +75,30 @@ class DisplayResultsCommandTest {
 
     @Test
     void printResponseWithNoExecutionData() {
-        //given
+        // given
+        Map<Integer, List<ExecutionData>> payloadIdToResult = new HashMap<>();
+        int messageId = 1;
+        payloadIdToResult.put(messageId, new ArrayList<>());
+        CommandResults response = new CommandResults();
+        response.setPayloadIdToResult(payloadIdToResult);
+
+        // redirect output to a stream
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        // when
+        displayCommandResultCommand.printResponse(response);
+
+        // then
+        assertEquals(
+                String.format(DisplayResultsCommand.THERE_IS_NO_PAYLOAD, 1) + "\r\n"
+                , outContent.toString()
+        );
+    }
+
+    @Test
+    void printResponseWithError() {
+        // given
         Map<Integer, List<ExecutionData>> payloadIdToResult = new HashMap<>();
         int messageId = 1;
         payloadIdToResult.put(messageId, null);
@@ -89,35 +109,35 @@ class DisplayResultsCommandTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        //when
+        // when
         displayCommandResultCommand.printResponse(response);
 
-        //then
+        // then
         assertEquals(
-                String.format(DisplayResultsCommand.THERE_IS_NO_PAYLOAD, 1) + "\r\n"
+                String.format(DisplayResultsCommand.SOMETHING_WENT_WRONG, 1) + "\r\n"
                 , outContent.toString()
         );
     }
 
     @Test
     void getClassName() {
-        //no given
+        // no given
 
-        //when
+        // when
         String commandName = displayCommandResultCommand.getCommandName();
 
-        //then
+        // then
         assertEquals("DisplayResults", commandName);
     }
 
     @Test
     void isKeepRunningCommand() {
-        //no given
+        // no given
 
-        //when
+        // when
         boolean isRunning = displayCommandResultCommand.isKeepRunningCommand();
 
-        //then
+        // then
         assertTrue(isRunning);
     }
 }

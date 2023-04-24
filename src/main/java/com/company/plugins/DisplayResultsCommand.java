@@ -28,6 +28,7 @@ public class DisplayResultsCommand implements Command {
     public static final String THERE_IS_NO_PAYLOAD = "There is no payload %s.";
     public static final String COMMAND_NAME = "DisplayResults";
     public static final String COMMAND_DESCRIPTION = "Display Result.";
+    public static final String SOMETHING_WENT_WRONG = "Something wend throng with payload id %s.";
 
     private final ConsoleInputReader consoleInputReader;
 
@@ -49,10 +50,12 @@ public class DisplayResultsCommand implements Command {
         CommandResults commandResults = (CommandResults) response;
 
         for (Map.Entry<Integer, List<ExecutionData>> entry : commandResults.getPayloadIdToResult().entrySet()) {
-            if (entry.getValue() != null) {
-                System.out.println(String.format(PAYLOADS, entry.getValue()));
-            } else {
+            if (entry.getValue() == null) {
+                System.out.println(String.format(SOMETHING_WENT_WRONG, entry.getKey()));
+            } else if (entry.getValue().isEmpty()) {
                 System.out.println(String.format(THERE_IS_NO_PAYLOAD, entry.getKey()));
+            } else {
+                System.out.println(String.format(PAYLOADS, entry.getValue()));
             }
         }
     }

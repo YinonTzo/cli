@@ -35,14 +35,14 @@ class RemoveClientCommandTest {
 
     @Test
     void getMessage() {
-        //given
+        // given
         List<Integer> requestIds = Arrays.asList(1, 2, 3);
         when(mockConsoleInputReader.readClientsIdsFromUser()).thenReturn(requestIds);
 
-        //when
+        // when
         BaseCLIToServer message = removeClientCommand.getMessage();
 
-        //then
+        // then
         assertEquals("RemoveClient", message.getType());
         assertEquals(requestIds, message.getRequestIds());
     }
@@ -51,8 +51,11 @@ class RemoveClientCommandTest {
     void testPrintResponseWithSuccessResponse() {
         // given
         Map<Long, String> clientIdToAck = new HashMap<>();
-        clientIdToAck.put(1L, "Client removed successfully");
-        clientIdToAck.put(2L, null);
+        long clientId1 = 1L;
+        long clientId2 = 2L;
+        String client_removed_successfully = "Client removed successfully";
+        clientIdToAck.put(clientId1, client_removed_successfully);
+        clientIdToAck.put(clientId2, null);
 
         SendPayload response = new SendPayload();
         response.setClientIdToAck(clientIdToAck);
@@ -64,7 +67,10 @@ class RemoveClientCommandTest {
         removeClientCommand.printResponse(response);
 
         // then
-        String expectedOutput = "Client removed successfully Client id: 1.\r\n2 does not exist or connected.\r\n";
+        String expectedOutput = String.format(
+                RemoveClientCommand.REMOVE_CLIENT_SUCCESSFULLY, client_removed_successfully, clientId1
+        ) + "\r\n"
+                + String.format(RemoveClientCommand.CLIENT_DOES_NOT_EXIST_OR_CONNECTED, clientId2) + "\r\n";
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -87,23 +93,23 @@ class RemoveClientCommandTest {
 
     @Test
     void getClassName() {
-        //no given
+        // no given
 
-        //when
+        // when
         String commandName = removeClientCommand.getCommandName();
 
-        //then
+        // then
         assertEquals("RemoveClient", commandName);
     }
 
     @Test
     void isKeepRunningCommand() {
-        //no given
+        // no given
 
-        //when
+        // when
         boolean isRunning = removeClientCommand.isKeepRunningCommand();
 
-        //then
+        // then
         assertTrue(isRunning);
     }
 }

@@ -64,9 +64,14 @@ class SendPayloadCommandTest {
         // given
         SendPayload sendPayload = new SendPayload();
         Map<Long, String> clientIdToAck = new HashMap<>();
-        clientIdToAck.put(1L, "Payload sent successfully");
-        clientIdToAck.put(2L, "Payload sent successfully");
-        clientIdToAck.put(3L, null);
+        long clientId1 = 1L;
+        long clientId2 = 2L;
+        long clientId3 = 3L;
+        String ack1 = "1";
+        String ack2 = "2";
+        clientIdToAck.put(clientId1, ack1);
+        clientIdToAck.put(clientId2, ack2);
+        clientIdToAck.put(clientId3, null);
         sendPayload.setClientIdToAck(clientIdToAck);
 
         // redirect output to a stream
@@ -77,9 +82,9 @@ class SendPayloadCommandTest {
         sendPayloadCommand.printResponse(sendPayload);
 
         // then
-        String expectedOutput = "Payload sent successfully to client number 1.\r\n" +
-                "Payload sent successfully to client number 2.\r\n" +
-                "3 does not exist or connected.\r\n";
+        String expectedOutput = String.format(SendPayloadCommand.SENT_PAYLOAD_ACK_MESSAGE, ack1, clientId1) + "\r\n"
+                + String.format(SendPayloadCommand.SENT_PAYLOAD_ACK_MESSAGE, ack2, clientId2) + "\r\n"
+                + String.format(SendPayloadCommand.CLIENT_DOES_NOT_EXIST_OR_CONNECTED, clientId3) + "\r\n";
         assertEquals(expectedOutput, outContent.toString());
     }
 

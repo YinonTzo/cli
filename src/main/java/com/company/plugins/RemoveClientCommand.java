@@ -21,6 +21,9 @@ import java.util.Map;
 public class RemoveClientCommand implements Command {
     public static final String COMMAND_NAME = "RemoveClient";
     public static final String COMMAND_DESCRIPTION = "Remove Client.";
+    public static final String FAILED_TO_SEND_MESSAGES_PLEASE_DO_EXIT = "Failed to send messages, Please do exit.";
+    public static final String CLIENT_DOES_NOT_EXIST_OR_CONNECTED = "Client id: %s does not exist or connected.";
+    public static final String REMOVE_CLIENT_SUCCESSFULLY = "%s Client id: %s.";
     private final ConsoleInputReader consoleInputReader;
 
     public RemoveClientCommand(ConsoleInputReader consoleInputReader) {
@@ -42,13 +45,13 @@ public class RemoveClientCommand implements Command {
 
         Map<Long, String> clientIdToAck = removeClientResponse.getClientIdToAck();
         if (clientIdToAck == null) {
-            System.out.println("Failed to send messages, Please do exit.");
+            System.out.println(FAILED_TO_SEND_MESSAGES_PLEASE_DO_EXIT);
         } else {
             for (Map.Entry<Long, String> entry : clientIdToAck.entrySet()) {
                 if (entry.getValue() != null) {
-                    System.out.println(entry.getValue() + " Client id: " + entry.getKey() + ".");
+                    System.out.println(String.format(REMOVE_CLIENT_SUCCESSFULLY, entry.getValue(), entry.getKey()));
                 } else {
-                    System.out.println(entry.getKey() + " does not exist or connected.");
+                    System.out.println(String.format(CLIENT_DOES_NOT_EXIST_OR_CONNECTED, entry.getKey()));
                 }
             }
         }

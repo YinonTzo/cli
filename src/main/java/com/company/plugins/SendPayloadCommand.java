@@ -40,6 +40,9 @@ public class SendPayloadCommand implements Command {
     public static final String ARGUMENT_DELIMITER = " ";
     public static final String COMMAND_NAME = "Send Payload.";
     public static final String COMMAND_DESCRIPTION = "SendPayloadCommand";
+    public static final String SENT_PAYLOAD_ACK_MESSAGE = "Sent payload %s to client number %s.";
+    public static final String CLIENT_DOES_NOT_EXIST_OR_CONNECTED = "%s does not exist or connected.";
+    public static final String FAILED_TO_SEND_MESSAGES_PLEASE_DO_EXIT = "Failed to send messages, Please do exit.";
 
     private final ConsoleInputReader consoleInputReader;
 
@@ -62,13 +65,13 @@ public class SendPayloadCommand implements Command {
 
         Map<Long, String> clientIdToAck = sendPayloadResponse.getClientIdToAck();
         if (clientIdToAck == null) {
-            System.out.println("Failed to send messages, Please do exit.");
+            System.out.println(FAILED_TO_SEND_MESSAGES_PLEASE_DO_EXIT);
         } else {
             for (Map.Entry<Long, String> entry : clientIdToAck.entrySet()) {
                 if (entry.getValue() != null) {
-                    System.out.println(entry.getValue() + " to client number " + entry.getKey() + ".");
+                    System.out.println(String.format(SENT_PAYLOAD_ACK_MESSAGE, entry.getValue(), entry.getKey()));
                 } else {
-                    System.out.println(entry.getKey() + " does not exist or connected.");
+                    System.out.println(String.format(CLIENT_DOES_NOT_EXIST_OR_CONNECTED, entry.getKey()));
                 }
             }
         }
